@@ -52,18 +52,18 @@ runs:
       shell: bash
       run: |
         ARGUMENTS=""
-        [[ -n "${{ inputs.help }}" ]]; ARGUMENTS+="  -h "
-        [[ -n "${{ inputs.version }}" ]]; ARGUMENTS+="  -V "
-        [[ -n "${{ inputs.config }}" ]]; ARGUMENTS+=" -c ${{ inputs.config }} "
-        [[ -n "${{ inputs.explain }}" ]]; ARGUMENTS+=" -e ${{ inputs.explain }} "
-        [[ -n "${{ inputs.rpmlintrc }}" ]]; ARGUMENTS+=" -r ${{ inputs.rpmlintrc }} "
-        [[ -n "${{ inputs.verbose }}" ]]; ARGUMENTS+=" -v "
-        [[ -n "${{ inputs.print-config }}" ]]; ARGUMENTS+=" -p "
-        [[ -n "${{ inputs.installed }}" ]]; ARGUMENTS+=" -i ${{ inputs.installed }} "
-        [[ -n "${{ inputs.time-report }}" ]]; ARGUMENTS+=" -t "
-        [[ -n "${{ inputs.profile }}" ]]; ARGUMENTS+="  -T "
-        [[ -n "${{ inputs.strict }}" ]]; ARGUMENTS+=" -s "
-        [[ -n "${{ inputs.permissive }}" ]]; ARGUMENTS+=" -p "
-        [[ -n "${{ inputs.rpmfiles }}" ]]; ARGUMENTS+=" ${{ inputs.rpmfiles }} "
+        if [[ -n "${{ inputs.help }}" ]]; then ARGUMENTS+=" -h "; fi
+        if [[ -n "${{ inputs.version }}" ]]; then ARGUMENTS+=" -V "; fi
+        if [[ -n "${{ inputs.config }}" ]]; then ARGUMENTS+=" -c ${{ inputs.config }} "; fi
+        if [[ -n "${{ inputs.explain }}" ]]; then ARGUMENTS+=" -e ${{ inputs.explain }} "; fi
+        if [[ -n "${{ inputs.rpmlintrc }}" ]]; then ARGUMENTS+=" -r ${{ inputs.rpmlintrc }} "; fi
+        if [[ -n "${{ inputs.verbose }}" ]]; then ARGUMENTS+=" -v "; fi
+        if [[ -n "${{ inputs.print-config }}" ]]; then ARGUMENTS+=" -p "; fi
+        if [[ -n "${{ inputs.installed }}" ]]; then ARGUMENTS+=" -i ${{ inputs.installed }} "; fi
+        if [[ -n "${{ inputs.time-report }}" ]]; then ARGUMENTS+=" -t "; fi
+        if [[ -n "${{ inputs.profile }}" ]]; then ARGUMENTS+=" -T "; fi
+        if [[ -n "${{ inputs.strict }}" ]]; then ARGUMENTS+=" -s "; fi
+        if [[ -n "${{ inputs.permissive }}" ]]; then ARGUMENTS+=" -p "; fi
+        if [[ -n "${{ inputs.rpmfiles }}" ]]; then ARGUMENTS+=" ${{ inputs.rpmfiles }} "; fi
         ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
         rpmlint $ARGUMENTS
