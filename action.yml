@@ -64,6 +64,11 @@ runs:
         if [[ -n "${{ inputs.profile }}" ]]; then ARGUMENTS+=" -T "; fi
         if [[ -n "${{ inputs.strict }}" ]]; then ARGUMENTS+=" -s "; fi
         if [[ -n "${{ inputs.permissive }}" ]]; then ARGUMENTS+=" -p "; fi
-        if [[ -n "${{ inputs.rpmfiles }}" ]]; then ARGUMENTS+=" ${{ inputs.rpmfiles }} "; fi
         ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
-        rpmlint $ARGUMENTS
+        if [[ -n "${{ inputs.rpmfiles }}" ]]; then
+          rpmlint $ARGUMENTS ${RPMFILES[@]}
+        else
+          rpmlint $ARGUMENTS
+        fi
+      env:
+        RPMFILES: ${{ inputs.rpmfiles }}
