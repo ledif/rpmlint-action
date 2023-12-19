@@ -42,33 +42,19 @@ inputs:
     description: 'Treat individual errors as non-fatal'
     required: false
 runs:
-  using: "composite"
-  steps:
-    - name: Install rpmlint
-      shell: bash
-      run: sudo apt -qq install rpmlint > /dev/null
-
-    - name: Perform rpmlint
-      shell: bash
-      run: |
-        ARGUMENTS=""
-        if [[ -n "${{ inputs.help }}" ]]; then ARGUMENTS+=" -h "; fi
-        if [[ -n "${{ inputs.version }}" ]]; then ARGUMENTS+=" -V "; fi
-        if [[ -n "${{ inputs.config }}" ]]; then ARGUMENTS+=" -c ${{ inputs.config }} "; fi
-        if [[ -n "${{ inputs.explain }}" ]]; then ARGUMENTS+=" -e ${{ inputs.explain }} "; fi
-        if [[ -n "${{ inputs.rpmlintrc }}" ]]; then ARGUMENTS+=" -r ${{ inputs.rpmlintrc }} "; fi
-        if [[ -n "${{ inputs.verbose }}" ]]; then ARGUMENTS+=" -v "; fi
-        if [[ -n "${{ inputs.print-config }}" ]]; then ARGUMENTS+=" -p "; fi
-        if [[ -n "${{ inputs.installed }}" ]]; then ARGUMENTS+=" -i ${{ inputs.installed }} "; fi
-        if [[ -n "${{ inputs.time-report }}" ]]; then ARGUMENTS+=" -t "; fi
-        if [[ -n "${{ inputs.profile }}" ]]; then ARGUMENTS+=" -T "; fi
-        if [[ -n "${{ inputs.strict }}" ]]; then ARGUMENTS+=" -s "; fi
-        if [[ -n "${{ inputs.permissive }}" ]]; then ARGUMENTS+=" -p "; fi
-        ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
-        if [[ -n "${{ inputs.rpmfiles }}" ]]; then
-          rpmlint $ARGUMENTS ${RPMFILES[@]}
-        else
-          rpmlint $ARGUMENTS
-        fi
-      env:
-        RPMFILES: ${{ inputs.rpmfiles }}
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    RPMFILES: ${{ inputs.rpmfiles }}
+    HELP: ${{ inputs.help }}
+    VERSION: ${{ inputs.version }}
+    CONFIG: ${{ inputs.config }}
+    EXPLAIN: ${{ inputs.explain }}
+    RPMLINTRC: ${{ inputs.rpmlintrc }}
+    VERBOSE: ${{ inputs.verbose }}
+    PRINT_CONFIG: ${{ inputs.print-config }}
+    INSTALLED: ${{ inputs.installed }}
+    TIME_REPORT: ${{ inputs.time-report }}
+    PROFILE: ${{ inputs.profile }}
+    STRICT: ${{ inputs.strict }}
+    PERMISSIVE: ${{ inputs.permissive }}
