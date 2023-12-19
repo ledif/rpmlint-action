@@ -46,7 +46,7 @@ runs:
   steps:
     - name: Install rpmlint
       shell: bash
-      run: sudo apt install -yq rpmlint
+      run: sudo apt -qq install rpmlint > /dev/null
 
     - name: Perform rpmlint
       shell: bash
