@@ -1,0 +1,69 @@
+name: 'rpmlint action'
+author: 'EyeCantCU'
+description: 'Checks for errors in RPMs via rpmlint'
+inputs:
+  rpmfiles:
+    description: 'Files to be validated by rpmlint'
+    required: false
+  help:
+    description: 'Show help message and exit'
+    required: false
+  version:
+    description: 'Show package version and exit'
+    required: false
+  config:
+    description: 'Load up additional configuration data from specified path (file or directory with *.toml files)'
+    required: false
+  explain:
+    description: 'Provide detailed explanation for one specific message id'
+    required: false
+  rpmlintrc:
+    description: 'Load up specified rpmlintrc file'
+    required: false
+  verbose:
+    description: 'Provide detailed explanations where available'
+    required: false
+  print-config:
+    description: 'Print the settings that are in effect when using the rpmlint'
+    required: false
+  installed:
+    description: 'Installed packages to be validated by rpmlint'
+    required: false
+  time-report:
+    description: 'Print time report for run checks'
+    required: false
+  profile:
+    description: 'Print cProfile report'
+    required: false
+  strict:
+    description: 'Treat all messages as errors'
+    required: false
+  permissive:
+    description: 'Treat individual errors as non-fatal'
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Install rpmlint
+      shell: bash
+      run: sudo apt install -yq rpmlint
+
+    - name: Perform rpmlint
+      shell: bash
+      run: |
+        ARGUMENTS=""
+        [[ -n "${{ inputs.help }}" ]]; ARGUMENTS+="  -h "
+        [[ -n "${{ inputs.version }}" ]]; ARGUMENTS+="  -V "
+        [[ -n "${{ inputs.config }}" ]]; ARGUMENTS+=" -c ${{ inputs.config }} "
+        [[ -n "${{ inputs.explain }}" ]]; ARGUMENTS+=" -e ${{ inputs.explain }} "
+        [[ -n "${{ inputs.rpmlintrc }}" ]]; ARGUMENTS+=" -r ${{ inputs.rpmlintrc }} "
+        [[ -n "${{ inputs.verbose }}" ]]; ARGUMENTS+=" -v "
+        [[ -n "${{ inputs.print-config }}" ]]; ARGUMENTS+=" -p "
+        [[ -n "${{ inputs.installed }}" ]]; ARGUMENTS+=" -i ${{ inputs.installed }} "
+        [[ -n "${{ inputs.time-report }}" ]]; ARGUMENTS+=" -t "
+        [[ -n "${{ inputs.profile }}" ]]; ARGUMENTS+="  -T "
+        [[ -n "${{ inputs.strict }}" ]]; ARGUMENTS+=" -s "
+        [[ -n "${{ inputs.permissive }}" ]]; ARGUMENTS+=" -p "
+        [[ -n "${{ inputs.rpmfiles }}" ]]; ARGUMENTS+=" ${{ inputs.rpmfiles }} "
+        ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
+        rpmlint $ARGUMENTS
