@@ -35,6 +35,12 @@ inputs:
   profile:
     description: 'Print cProfile report'
     required: false
+  ignore-unused-rpmlintrc:
+    description: 'Do not report unused-rpmlintrc-filter errors'
+    required: false
+  checks:
+    description: 'Debugging option that enables only selected checks (separated by comma)'
+    required: false
   strict:
     description: 'Treat all messages as errors'
     required: false
@@ -56,5 +62,7 @@ runs:
     INSTALLED: ${{ inputs.installed }}
     TIME_REPORT: ${{ inputs.time-report }}
     PROFILE: ${{ inputs.profile }}
+    IGNORE_UNUSED_RPMLINTRC: ${{ inputs.ignore-unusued-rpmlintrc }}
+    CHECKS: ${{ inputs.checks }}
     STRICT: ${{ inputs.strict }}
     PERMISSIVE: ${{ inputs.permissive }}
