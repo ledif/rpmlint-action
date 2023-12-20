@@ -15,7 +15,7 @@ if [[ -n "${PROFILE}" ]]; then ARGUMENTS+=" -T "; fi
 if [[ -n "${IGNORE_UNUSED_RPMLINTRC}" ]]; then ARGUMENTS+=" --ignore-unused-rpmlintrc "; fi
 if [[ -n "${CHECKS}" ]]; then ARGUMENTS+=" --checks ${CHECKS} "; fi
 if [[ -n "${STRICT}" ]]; then ARGUMENTS+=" -s "; fi
-if [[ -n "${PERMISSIVE}" ]]; then ARGUMENTS+=" -p "; fi
+if [[ -n "${PERMISSIVE}" ]]; then ARGUMENTS+=" -P "; fi
 
 # Format arguments
 ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
