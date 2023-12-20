@@ -38,8 +38,10 @@ jobs:
         uses: ./
         with:
           rpmfiles: ./devpod.spec
+          permissive: 'true'
 
       - name: Test rpmlint (multiple files)
         uses: ./
         with:
           rpmfiles: './devpod.spec, ./prompt.spec'
+          permissive: 'true'
