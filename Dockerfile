@@ -1,4 +1,4 @@
-FROM quay.io/fedora/fedora-minimal:39
+FROM ghcr.io/eyecantcu/rpmlint-action:latest
 
 COPY rpmlint.sh /tmp/rpmlint.sh
 

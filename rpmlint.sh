@@ -1,8 +1,5 @@
 #!/usr/bin/bash
 
-# Install rpmlint
-dnf5 install -qy rpmlint > /dev/null
-
 # Parse arguments
 ARGUMENTS=""
 if [[ -n "${HELP}" ]]; then ARGUMENTS+=" -h "; fi
