@@ -3,7 +3,7 @@ author: 'EyeCantCU'
 description: 'Checks for errors in RPMs via rpmlint'
 inputs:
   rpmfiles:
-    description: 'Files to be validated by rpmlint'
+    description: 'Comma-separated list of files to be validated by rpmlint'
     required: false
   help:
     description: 'Show help message and exit'

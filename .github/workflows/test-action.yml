@@ -1,5 +1,11 @@
 name: Test Action
 on:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
   push:
     branches:
       - main
@@ -26,8 +32,14 @@ jobs:
       - name: Fetch spec
         run: |
           wget https://raw.githubusercontent.com/ublue-os/packages/main/staging/devpod/devpod.spec
+          wget https://raw.githubusercontent.com/ublue-os/packages/main/staging/prompt/prompt.spec
 
-      - name: Test rpmlint
+      - name: Test rpmlint (single file)
         uses: ./
         with:
           rpmfiles: ./devpod.spec
+
+      - name: Test rpmlint (multiple files)
+        uses: ./
+        with:
+          rpmfiles: './devpod.spec, ./prompt.spec'
