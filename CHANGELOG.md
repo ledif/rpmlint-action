@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1](https://github.com/EyeCantCU/rpmlint-action/compare/v0.1.0...v0.1.1) (2023-12-20)
+
+
+### Bug Fixes
+
+* **action:** Pass proper flag for permissive ([fd480d3](https://github.com/EyeCantCU/rpmlint-action/commit/fd480d38b2650e575e2e8cd90fb6801ae6fb6707))
+* support comma separated files input ([#3](https://github.com/EyeCantCU/rpmlint-action/issues/3)) ([ab9ea0e](https://github.com/EyeCantCU/rpmlint-action/commit/ab9ea0e5136a0453b32cf5241dab003f385931ce))
+
 ## 0.1.0 (2023-12-20)
 
 
