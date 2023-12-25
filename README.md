@@ -18,10 +18,7 @@ jobs:
       - name: Lint RPM
         uses: EyeCantCU/rpmlint-action@v0.1.0
         with:
-          rpmfiles: |
-            example.rpm
-            example.src.rpm
-            example.spec
+          rpmfiles: example.rpm, example.src.rpm, example.spec
 ```
 
 Keep in mind, 'rpmlint' can be used for RPMs, source RPMs, and spec files.
