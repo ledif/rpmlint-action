@@ -26,6 +26,8 @@ rpmlint="rpmlint $ARGUMENTS"
 
 if [[ -n "${RPKG}" ]]; then
   rpmlint="rpkg lint"
+  # specs using rpkg macros need to be suffixed with .rpkg
+  find . -name "*.spec" -exec mv {} {}.rpkg \;
 fi
 
 # Perform rpmlint on comma-separated list of files
