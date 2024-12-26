@@ -32,7 +32,7 @@ jobs:
       - name: Fetch spec
         run: |
           wget https://raw.githubusercontent.com/ublue-os/packages/main/staging/devpod/devpod.spec
-          wget https://raw.githubusercontent.com/ublue-os/packages/main/staging/prompt/prompt.spec
+          wget https://raw.githubusercontent.com/ublue-os/packages/refs/heads/main/staging/scx-scheds/scx-scheds.spec
 
       - name: Test rpmlint (single file)
         uses: ./
@@ -43,5 +43,5 @@ jobs:
       - name: Test rpmlint (multiple files)
         uses: ./
         with:
-          rpmfiles: './devpod.spec, ./prompt.spec'
+          rpmfiles: './devpod.spec, ./scx-scheds.spec'
           permissive: 'true'
