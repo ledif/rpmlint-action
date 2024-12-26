@@ -106,14 +106,6 @@ jobs:
           extra-args: |
             --disable-content-trust
 
-      - name: Sign image
-        uses: EyeCantCU/cosign-action/sign@v0.2.2
-        with:
-          container: ghcr.io/${{ github.repository_owner }}/${{ matrix.image_name }}
-          registry-token: ${{ secrets.GITHUB_TOKEN }}
-          signing-secret: ${{ secrets.SIGNING_SECRET }}
-          tags: ${{ steps.push.outputs.digest }}
-
       - name: Echo outputs
         if: github.event_name != 'pull_request'
         run: |

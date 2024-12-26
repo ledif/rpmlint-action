@@ -47,6 +47,9 @@ inputs:
   permissive:
     description: 'Treat individual errors as non-fatal'
     required: false
+  rpkg:
+    description: 'Pre-process the rpm using rpkg'
+    required: false
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -66,3 +69,4 @@ runs:
     CHECKS: ${{ inputs.checks }}
     STRICT: ${{ inputs.strict }}
     PERMISSIVE: ${{ inputs.permissive }}
+    RPKG: ${{ inputs.rpkg }}

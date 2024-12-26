@@ -17,6 +17,8 @@ if [[ -n "${CHECKS}" ]]; then ARGUMENTS+=" --checks ${CHECKS} "; fi
 if [[ -n "${STRICT}" ]]; then ARGUMENTS+=" -s "; fi
 if [[ -n "${PERMISSIVE}" ]]; then ARGUMENTS+=" -P "; fi
 
+if [[ -n "${RPKG}" ]]; then echo "Called with rpkg"; fi
+
 # Format arguments
 ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
 

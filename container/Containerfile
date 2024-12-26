@@ -1,3 +1,3 @@
-FROM quay.io/fedora/fedora-minimal:39 AS rpmlint-action
+FROM quay.io/fedora/fedora-minimal:41 AS rpmlint-action
 
-RUN dnf5 install -y rpmlint && dnf5 clean all
+RUN dnf5 install -y rpmlint rpkg && dnf5 clean all
