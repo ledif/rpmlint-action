@@ -52,3 +52,8 @@ jobs:
         with:
           rpmfiles: ./kf6-kio.spec
           rpkg: 'true'
+
+      - name: Test all specs with rpkg
+        uses: ./
+        with:
+          rpkg: 'true'

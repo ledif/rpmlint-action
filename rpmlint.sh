@@ -22,19 +22,27 @@ ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
 
 set -x
 
-rpmlint="rpmlint $ARGUMENTS"
-
 if [[ -n "${RPKG}" ]]; then
-  rpmlint="rpkg lint"
   # specs using rpkg macros need to be suffixed with .rpkg
   find . -name "*.spec" -exec mv {} {}.rpkg \;
 fi
 
+function invoke_rpmlint {
+  rpmspec=$1
+  if [[ -n "${RPKG}" ]]; then
+    rpmlint="rpkg lint"
+    if [ -f "$rpmspec"]; then rpmspec="$rpmspec.rpkg"; fi
+  else
+    rpmlint="rpmlint $ARGUMENTS"
+  fi
+  $rpmlint "$rpmspec"
+}
+
 # Perform rpmlint on comma-separated list of files
 if [[ -n "${RPMFILES}" ]]; then
   for FILE in $(echo "${RPMFILES}" | tr "," "\n"); do
-    $rpmlint $FILE
+    invoke_rpmlint "$FILE"
   done
 else
-  $rpmlint
+  invoke_rpmlint
 fi
