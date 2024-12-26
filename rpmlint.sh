@@ -17,9 +17,6 @@ if [[ -n "${CHECKS}" ]]; then ARGUMENTS+=" --checks ${CHECKS} "; fi
 if [[ -n "${STRICT}" ]]; then ARGUMENTS+=" -s "; fi
 if [[ -n "${PERMISSIVE}" ]]; then ARGUMENTS+=" -P "; fi
 
-# Format arguments
-ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
-
 set -x
 
 if [[ -n "${RPKG}" ]]; then
@@ -30,12 +27,21 @@ fi
 function invoke_rpmlint {
   rpmspec=$1
   if [[ -n "${RPKG}" ]]; then
-    rpmlint="rpkg lint"
-    if [ -n "$rpmspec" ]; then rpmspec="${rpmspec}.rpkg"; fi
+    if [ -n "$rpmspec" ]; then
+      rpkg lint "${rpmspec}.rpkg"
+    else
+      find . -name "*.spec.rpkg" -exec rpkg lint {} \;
+    fi
   else
-    rpmlint="rpmlint $ARGUMENTS"
+    # Format arguments
+    ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
+
+    if [ -n "$rpmspec" ]; then
+      rpmlint $ARGUMENTS $rpmspec
+    else
+      rpmlint $ARGUMENTS .
+    fi
   fi
-  $rpmlint "$rpmspec"
 }
 
 # Perform rpmlint on comma-separated list of files
