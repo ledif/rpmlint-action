@@ -29,10 +29,11 @@ jobs:
       - name: Perform checkout
         uses: actions/checkout@v4
 
-      - name: Fetch spec
+      - name: Fetch specs
         run: |
           wget https://raw.githubusercontent.com/ublue-os/packages/main/staging/devpod/devpod.spec
           wget https://raw.githubusercontent.com/ublue-os/packages/refs/heads/main/staging/scx-scheds/scx-scheds.spec
+          wget https://raw.githubusercontent.com/ublue-os/packages/refs/heads/main/staging/kf6-kio/kf6-kio.spec
 
       - name: Test rpmlint (single file)
         uses: ./
@@ -45,3 +46,9 @@ jobs:
         with:
           rpmfiles: './devpod.spec, ./scx-scheds.spec'
           permissive: 'true'
+
+      - name: Test rpmlint with rpkg
+        uses: ./
+        with:
+          rpmfiles: ./kf6-kio.spec
+          #rpk: 'true'
