@@ -51,4 +51,4 @@ jobs:
         uses: ./
         with:
           rpmfiles: ./kf6-kio.spec
-          #rpk: 'true'
+          rpkg: 'true'
