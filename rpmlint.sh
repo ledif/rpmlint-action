@@ -17,16 +17,22 @@ if [[ -n "${CHECKS}" ]]; then ARGUMENTS+=" --checks ${CHECKS} "; fi
 if [[ -n "${STRICT}" ]]; then ARGUMENTS+=" -s "; fi
 if [[ -n "${PERMISSIVE}" ]]; then ARGUMENTS+=" -P "; fi
 
-if [[ -n "${RPKG}" ]]; then echo "Called with rpkg"; fi
-
 # Format arguments
 ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
+
+set -x
+
+rpmlint="$(which rpmlint) $ARGUMENTS"
+
+if [[ -n "${RPKG}" ]]; then
+  rpmlint="$(which rpkg) lint"
+fi
 
 # Perform rpmlint on comma-separated list of files
 if [[ -n "${RPMFILES}" ]]; then
   for FILE in $(echo "${RPMFILES}" | tr "," "\n"); do
-    rpmlint $ARGUMENTS $FILE
+    $rpmlint $FILE
   done
 else
-  rpmlint $ARGUMENTS
+  $rpmlint
 fi
