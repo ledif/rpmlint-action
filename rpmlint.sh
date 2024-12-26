@@ -31,7 +31,7 @@ function invoke_rpmlint {
   rpmspec=$1
   if [[ -n "${RPKG}" ]]; then
     rpmlint="rpkg lint"
-    rpmspec="${rpmspec}.rpkg"
+    if [ -n "$rpmspec" ]; then rpmspec="${rpmspec}.rpkg"; fi
   else
     rpmlint="rpmlint $ARGUMENTS"
   fi
