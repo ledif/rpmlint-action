@@ -22,10 +22,10 @@ ARGUMENTS=$(echo "$ARGUMENTS" | xargs)
 
 set -x
 
-rpmlint="$(which rpmlint) $ARGUMENTS"
+rpmlint="rpmlint $ARGUMENTS"
 
 if [[ -n "${RPKG}" ]]; then
-  rpmlint="$(which rpkg) lint"
+  rpmlint="rpkg lint"
 fi
 
 # Perform rpmlint on comma-separated list of files
